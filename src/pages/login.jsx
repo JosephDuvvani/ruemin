@@ -1,13 +1,16 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
 import isAuth from "../utils/guardAuth";
+import { jwtDecode } from "jwt-decode";
+import UserContext from "../context/user-context";
 
 const Login = () => {
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
   const [error, setError] = useState();
   const navigate = useNavigate();
+  const { setUser } = useContext(UserContext);
 
   const cookies = new Cookies(null, { path: "/" });
 
@@ -36,8 +39,17 @@ const Login = () => {
         else if (data.error) console.error(data.error.message);
         else {
           const { accessToken, refreshToken } = data;
-          cookies.set("jwt-access-ruemin", accessToken);
-          cookies.set("jwt-refresh-ruemin", refreshToken);
+          const decodeAccess = jwtDecode(accessToken);
+          const decodeRefresh = jwtDecode(refreshToken);
+
+          cookies.set("jwt-access-ruemin", accessToken, {
+            expires: new Date(decodeAccess.exp * 1000),
+          });
+          cookies.set("jwt-refresh-ruemin", refreshToken, {
+            expires: new Date(decodeRefresh.exp * 1000),
+          });
+
+          setUser({ id: decodeAccess.id, username: decodeAccess.username });
           navigate("/", { replace: true });
         }
       });
