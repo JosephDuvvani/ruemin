@@ -3,7 +3,7 @@ import Header from "../components/header";
 import Cookies from "universal-cookie";
 import fetchToken from "../utils/refresh-auth";
 import UserContext from "../context/user-context";
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import { format } from "date-fns";
 
@@ -61,12 +61,12 @@ const Homepage = () => {
                 (chatter) =>
                   chatter.id !== user.id && (
                     <div key={index} className="chat">
-                      <Link to={`##`} className="chat__link">
+                      <Link to={`messages/${chat.id}`} className="chat__link">
                         <div className="chat__link__image">
                           <img
                             src={
                               chatter.profile.imageUrl ||
-                              "src/assets/profile.jpeg"
+                              "/src/assets/profile.jpeg"
                             }
                             alt=""
                           />
@@ -99,6 +99,9 @@ const Homepage = () => {
           ) : (
             <p>No chats active</p>
           ))}
+      </div>
+      <div className="message-block">
+        <Outlet />
       </div>
     </>
   );
