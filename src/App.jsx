@@ -53,9 +53,9 @@ function App() {
       const decode = jwtDecode(refreshToken);
       setUser({ id: decode.id, username: decode.username });
 
-      fetchChats();
+      if (user) fetchChats();
     }
-  }, []);
+  }, [user?.id]);
   return (
     <UserProvider value={{ user, inbox, setUser, setInbox }}>
       <Outlet />
