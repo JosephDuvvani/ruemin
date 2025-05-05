@@ -1,6 +1,8 @@
 import { useContext } from "react";
 import RequestContext from "../context/request-context";
 import RemoveRequest from "./removeRequest";
+import AcceptRequest from "./acceptRequest";
+import RejectRequest from "./rejectRequest";
 
 const Requests = () => {
   const { requests } = useContext(RequestContext);
@@ -53,6 +55,8 @@ const Requests = () => {
                 <div>
                   {`${req.sender.profile.firstname} ${req.sender.profile.lastname}`.trim()}
                 </div>
+                <AcceptRequest requestId={req.id} />
+                <RejectRequest requestId={req.id} />
               </div>
             ))
           ) : (
