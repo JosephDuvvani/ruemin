@@ -43,14 +43,13 @@ const Requests = () => {
                 <div>
                   <img
                     src={
-                      req.receiver.profile.imageUrl ||
-                      "/src/assets/profile.jpeg"
+                      req.sender.profile.imageUrl || "/src/assets/profile.jpeg"
                     }
                     alt=""
                   />
                 </div>
                 <div>
-                  {`${req.receiver.profile.firstname} ${req.receiver.profile.lastname}`.trim()}
+                  {`${req.sender.profile.firstname} ${req.sender.profile.lastname}`.trim()}
                 </div>
               </div>
             ))
