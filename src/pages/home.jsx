@@ -1,53 +1,11 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import Header from "../components/header";
-import Cookies from "universal-cookie";
-import fetchToken from "../utils/refresh-auth";
 import UserContext from "../context/user-context";
 import { Link, Outlet } from "react-router-dom";
-import { jwtDecode } from "jwt-decode";
 import { format } from "date-fns";
 
 const Homepage = () => {
-  const { user, inbox, setInbox } = useContext(UserContext);
-
-  useEffect(() => {
-    if (inbox) return;
-
-    const fetchChats = async () => {
-      const apiURL = import.meta.env.VITE_RUEMIN_API_URL;
-      const cookies = new Cookies(null, { path: "/" });
-      let accessToken = cookies.get("jwt-access-ruemin");
-      if (!accessToken) {
-        const refreshToken = cookies.get("jwt-refresh-ruemin");
-        const url = `${apiURL}/token`;
-        const data = await fetchToken(refreshToken, url);
-
-        if (data.accessToken) {
-          const decode = jwtDecode(data.accessToken);
-          cookies.set("jwt-access-ruemin", data.accessToken, {
-            expires: new Date(decode.exp * 1000),
-          });
-          accessToken = data.accessToken;
-        }
-      }
-
-      if (accessToken) {
-        const options = {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        };
-        fetch(`${apiURL}/chats`, options)
-          .then((res) => res.json())
-          .then((data) => {
-            if (data.error) console.error(data.error.msg);
-            else setInbox(data.chats.inbox);
-          });
-      }
-    };
-    fetchChats();
-  }, []);
+  const { user, inbox } = useContext(UserContext);
 
   return (
     <>
