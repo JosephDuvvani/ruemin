@@ -3,6 +3,10 @@ import Login from "../pages/login";
 import App from "../App";
 import Signup from "../pages/signup";
 import Chat from "../pages/chat";
+import Chatters from "../pages/chatters";
+import InChat from "../components/in-chat";
+import Suggestions from "../components/suggetstions";
+import Requests from "../components/requests";
 
 const routes = [
   {
@@ -31,6 +35,24 @@ const routes = [
       {
         path: "signup",
         element: <Signup />,
+      },
+      {
+        path: "chatters",
+        element: <Chatters />,
+        children: [
+          {
+            index: true,
+            element: <InChat />,
+          },
+          {
+            path: "suggestions",
+            element: <Suggestions />,
+          },
+          {
+            path: "requests",
+            element: <Requests />,
+          },
+        ],
       },
     ],
   },
