@@ -60,74 +60,86 @@ const Signup = () => {
   };
 
   return (
-    <div className="auth">
-      <div className="auth__title">RUEMIN</div>
-      <div className="auth__tag">
-        Step up, sign up, and let the conversations flow. Connect securely, chat
-        freely!
-      </div>
-      <form onSubmit={handleSubmit} className="auth__form">
-        <div className="input-wrapper">
-          <label>
-            <input
-              type="text"
-              name="username"
-              aria-label="Your username"
-              placeholder="Username"
-              onChange={(e) => setUsername(e.target.value)}
-            />
-            {error && error.path === "username" && (
-              <div className="auth__error">{error.msg}</div>
-            )}
-          </label>
+    <div>
+      <div className="auth h-100v">
+        <div className="auth__title">RUEMIN</div>
+        <div className="auth__tag">
+          Step up, sign up, and let the conversations flow. Connect securely,
+          chat freely!
         </div>
-        <div className="input-wrapper">
-          <label>
-            <input
-              type="password"
-              name="password"
-              aria-label="Your password"
-              placeholder="Password"
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            {error && error.path === "password" && (
-              <div className="auth__error">{error.msg}</div>
-            )}
-          </label>
-        </div>
-        <div className="input-wrapper">
-          <label>
-            <input
-              type="text"
-              name="firstname"
-              aria-label="Your firstname"
-              placeholder="Firstname"
-              onChange={(e) => setFirstname(e.target.value)}
-            />
-            {error && error.path === "firstname" && (
-              <div className="auth__error">{error.msg}</div>
-            )}
-          </label>
-        </div>
-        <div className="input-wrapper">
-          <label>
-            <input
-              type="text"
-              name="lastname"
-              aria-label="Your lastname"
-              placeholder="Lastname"
-              onChange={(e) => setLastname(e.target.value)}
-            />
-            {error && error.path === "lastname" && (
-              <div className="auth__error">{error.msg}</div>
-            )}
-          </label>
-        </div>
+        <form onSubmit={handleSubmit} className="auth__form">
+          <div className="input-wrapper">
+            <label>
+              <input
+                className="auth__form__input"
+                type="text"
+                name="username"
+                aria-label="Your username"
+                placeholder="Username"
+                autoComplete="off"
+                onChange={(e) => setUsername(e.target.value)}
+              />
+              {error && error.path === "username" && (
+                <div className="auth__error--signup">{error.msg}</div>
+              )}
+            </label>
+          </div>
+          <div className="input-wrapper">
+            <label>
+              <input
+                className="auth__form__input"
+                type="password"
+                name="password"
+                aria-label="Your password"
+                placeholder="Password"
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              {error && error.path === "password" && (
+                <div className="auth__error--signup">{error.msg}</div>
+              )}
+            </label>
+          </div>
+          <div className="input-wrapper">
+            <label>
+              <input
+                className="auth__form__input"
+                type="text"
+                name="firstname"
+                aria-label="Your firstname"
+                placeholder="Firstname"
+                autoComplete="off"
+                onChange={(e) => setFirstname(e.target.value)}
+              />
+              {error && error.path === "firstname" && (
+                <div className="auth__error--signup">{error.msg}</div>
+              )}
+            </label>
+          </div>
+          <div className="input-wrapper">
+            <label>
+              <input
+                className="auth__form__input"
+                type="text"
+                name="lastname"
+                aria-label="Your lastname"
+                placeholder="Lastname"
+                autoComplete="off"
+                onChange={(e) => setLastname(e.target.value)}
+              />
+              {error && error.path === "lastname" && (
+                <div className="auth__error--signup">{error.msg}</div>
+              )}
+            </label>
+          </div>
 
-        <button className="btn">Sign Up</button>
-      </form>
-      <div className="btn">
-        <Link to={"../login"}>Log In</Link>
+          <button className="auth__form__btn">Sign Up</button>
+
+          <div className="btn">
+            <Link to={"../login"} className="auth__form__link auth__form__btn">
+              Log In
+            </Link>
+          </div>
+        </form>
       </div>
     </div>
   );

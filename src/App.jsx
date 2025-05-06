@@ -5,6 +5,7 @@ import { UserProvider } from "./context/user-context";
 import Cookies from "universal-cookie";
 import { jwtDecode } from "jwt-decode";
 import fetchToken from "./utils/refresh-auth";
+import "./assets/styles/global.css";
 
 function App() {
   const [user, setUser] = useState();

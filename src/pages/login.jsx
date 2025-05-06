@@ -4,6 +4,7 @@ import Cookies from "universal-cookie";
 import isAuth from "../utils/guardAuth";
 import { jwtDecode } from "jwt-decode";
 import UserContext from "../context/user-context";
+import "../assets/styles/auth-forms.css";
 
 const Login = () => {
   const [username, setUsername] = useState();
@@ -56,29 +57,36 @@ const Login = () => {
   };
 
   return (
-    <div className="auth">
-      <div className="auth__title">RUEMIN</div>
-      <div className="auth__tag">
-        Step in, log in, and let the conversations flow. Connect securely, chat
-        freely!
-      </div>
-      <form onSubmit={handleSubmit} className="auth__form">
-        <input
-          type="text"
-          name="username"
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <input
-          type="password"
-          name="password"
-          onChange={(e) => setPassword(e.target.value)}
-        />
+    <div>
+      <div className="auth h-100v">
+        <h1 className="auth__title">RUEMIN</h1>
+        <h2 className="auth__tag">
+          Step in, log in, and let the conversations flow. Connect securely,
+          chat freely!
+        </h2>
+        <form onSubmit={handleSubmit} className="auth__form">
+          <input
+            className="auth__form__input"
+            type="text"
+            name="username"
+            placeholder="Username"
+            autoComplete="off"
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <input
+            className="auth__form__input"
+            type="password"
+            name="password"
+            placeholder="Password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
 
-        <button className="btn">Log In</button>
-      </form>
-      {error && <div className="auth__error">{error.msg}</div>}
-      <div className="btn">
-        <Link to={"../signup"}>Create new account</Link>
+          <button className="auth__form__btn">Log In</button>
+          <Link to={"../signup"} className="auth__form__link auth__form__btn">
+            Create new account
+          </Link>
+        </form>
+        {error && <div className="auth__error">{error.msg}</div>}
       </div>
     </div>
   );
