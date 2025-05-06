@@ -3,7 +3,6 @@ import Header from "../components/header";
 import { useEffect, useState } from "react";
 import { RequestProvider } from "../context/request-context";
 import Cookies from "universal-cookie";
-import { jwtDecode } from "jwt-decode";
 import fetchToken from "../utils/refresh-auth";
 
 const Chatters = () => {
@@ -15,17 +14,7 @@ const Chatters = () => {
       const cookies = new Cookies(null, { path: "/" });
       let accessToken = cookies.get("jwt-access-ruemin");
       if (!accessToken) {
-        const refreshToken = cookies.get("jwt-refresh-ruemin");
-        const url = `${apiURL}/token`;
-        const data = await fetchToken(refreshToken, url);
-
-        if (data.accessToken) {
-          const decode = jwtDecode(data.accessToken);
-          cookies.set("jwt-access-ruemin", data.accessToken, {
-            expires: new Date(decode.exp * 1000),
-          });
-          accessToken = data.accessToken;
-        }
+        accessToken = await fetchToken();
       }
 
       if (accessToken) {

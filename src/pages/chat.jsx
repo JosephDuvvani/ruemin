@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import UserContext from "../context/user-context";
 import { format } from "date-fns";
 import Cookies from "universal-cookie";
-import { jwtDecode } from "jwt-decode";
 import fetchToken from "../utils/refresh-auth";
 
 const Chat = () => {
@@ -23,17 +22,7 @@ const Chat = () => {
         const cookies = new Cookies(null, { path: "/" });
         let accessToken = cookies.get("jwt-access-ruemin");
         if (!accessToken) {
-          const refreshToken = cookies.get("jwt-refresh-ruemin");
-          const url = `${apiURL}/token`;
-          const data = await fetchToken(refreshToken, url);
-
-          if (data.accessToken) {
-            const decode = jwtDecode(data.accessToken);
-            cookies.set("jwt-access-ruemin", data.accessToken, {
-              expires: new Date(decode.exp * 1000),
-            });
-            accessToken = data.accessToken;
-          }
+          accessToken = await fetchToken();
         }
 
         if (accessToken) {
