@@ -32,10 +32,13 @@ const LogoutButton = () => {
   };
 
   return (
-    <button className="logout-btn" onClick={handleClick}>
-      <span>
-        <Icon className="logout-btn__icon" path={mdiLogout} size={1} />
-      </span>
+    <button
+      className="header__dropdown__btn account__dropdown__btn"
+      onClick={handleClick}
+    >
+      <div className="circle-bg-icon">
+        <Icon path={mdiLogout} />
+      </div>
       <span>Logout</span>
     </button>
   );

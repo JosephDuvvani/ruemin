@@ -51,6 +51,8 @@ p {
   --clr-red: #c41414;
   --title-green: var(--green-600);
   --bg-deemphasized: #f2f4f7;
+  --bg-deemphasized-btn: #f0f0f0;
+  --bg-deemphasized-icon: hsl(257, 14%, 90%);
 
   --clr-body: #211e23;
   --fs-body: 0.9375rem;
@@ -58,6 +60,8 @@ p {
 
   --border-rad-input: 6px;
   --border-rad-button: 6px;
+
+  --box-shadow: 0 2px 8px 2px hsl(0 0 0 / 0.1);
 }
 
 /* Global */
@@ -67,6 +71,11 @@ body {
   font-size: var(--fs-body);
   color: var(--clr-body);
   line-height: 1.34;
+}
+
+svg {
+  display: block;
+  width: 100%;
 }
 
 /* Utility Classes */

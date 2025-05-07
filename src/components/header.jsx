@@ -5,10 +5,13 @@ import AccountDropdown from "./accountDropdown";
 import { useContext, useEffect, useState } from "react";
 import Cookies from "universal-cookie";
 import UserContext from "../context/user-context";
+import fetchToken from "../utils/refresh-auth";
+import "../assets/styles/header.css";
 
 const Header = () => {
   const { user } = useContext(UserContext);
   const [userDetails, setUserDetails] = useState();
+  const [dropdown, setDropdown] = useState(false);
 
   useEffect(() => {
     const fetchUserDetails = async () => {
@@ -36,14 +39,28 @@ const Header = () => {
     };
 
     if (user) fetchUserDetails();
-  }, [user?.id]);
+
+    const handleBodyClick = (e) => {
+      if (!dropdown || e.target.dataset.type === "account-button") return;
+      else if (!e.target.dataset.dropdown) setDropdown(!dropdown);
+    };
+
+    document.body.addEventListener("click", handleBodyClick);
+
+    return () => {
+      document.body.removeEventListener("click", handleBodyClick);
+    };
+  }, [user?.id, dropdown]);
+
+  const toggleDropdown = () => setDropdown(!dropdown);
+
   return (
     <header className="header">
       <h1 className="header__title">RUEMIN</h1>
       <nav className="header__nav">
         <Link to={"/"} className="header__nav__link" aria-label="Homepage">
           <span>
-            <Icon path={mdiHome} size={1} title="Home" />
+            <Icon className="header__nav__icon" path={mdiHome} title="Home" />
           </span>
         </Link>
         <Link
@@ -52,22 +69,34 @@ const Header = () => {
           aria-label="Ruemin chatters"
         >
           <span>
-            <Icon path={mdiAccountMultipleOutline} size={1} title="Chatters" />
+            <Icon
+              className="header__nav__icon"
+              path={mdiAccountMultipleOutline}
+              title="Chatters"
+            />
           </span>
         </Link>
       </nav>
-      <div>
-        <button className="account-btn">
+      <div className="account">
+        <button
+          className="account__btn"
+          title="Account"
+          onClick={toggleDropdown}
+          data-type="account-button"
+        >
           <img
-            className="account-btn__image"
+            className="account__btn__img"
             src={userDetails?.profile.imageUrl || "/src/assets/profile.jpeg"}
             alt=""
           />
 
-          <Icon className="account-btn__image" path={mdiChevronDown} size={1} />
+          <span className="account__btn__icon">
+            <Icon path={mdiChevronDown} size={0.65} />
+          </span>
         </button>
+
+        {dropdown && <AccountDropdown user={userDetails} />}
       </div>
-      <AccountDropdown user={userDetails} />
     </header>
   );
 };
