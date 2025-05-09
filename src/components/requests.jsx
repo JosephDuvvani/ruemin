@@ -12,12 +12,12 @@ const Requests = () => {
 
   return (
     <div>
-      <div>
-        <h2>Requests Sent</h2>
+      <h2 className="heading">Requests Sent</h2>
+      <div className="chatters">
         {sent &&
           (sent.length > 0 ? (
             sent.map((req) => (
-              <div key={req.id}>
+              <div key={req.id} className="card">
                 <div>
                   <img
                     src={
@@ -27,23 +27,25 @@ const Requests = () => {
                     alt=""
                   />
                 </div>
-                <div>
+                <div className="card__title">
                   {`${req.receiver.profile.firstname} ${req.receiver.profile.lastname}`.trim()}
                 </div>
                 <RemoveRequest requestId={req.id} />
               </div>
             ))
           ) : (
-            <div>You have not sent any requests.</div>
+            <div className="card card-empty">
+              You have not sent any requests.
+            </div>
           ))}
       </div>
 
-      <div>
-        <h2>Requests Received</h2>
+      <h2 className="heading">Requests Received</h2>
+      <div className="chatters">
         {received &&
           (received.length > 0 ? (
             received.map((req) => (
-              <div key={req.id}>
+              <div key={req.id} className="card">
                 <div>
                   <img
                     src={
@@ -52,7 +54,7 @@ const Requests = () => {
                     alt=""
                   />
                 </div>
-                <div>
+                <div className="card__title">
                   {`${req.sender.profile.firstname} ${req.sender.profile.lastname}`.trim()}
                 </div>
                 <AcceptRequest requestId={req.id} />
@@ -60,7 +62,9 @@ const Requests = () => {
               </div>
             ))
           ) : (
-            <div>You have not received any requests.</div>
+            <div className="card card-empty">
+              You have not received any requests.
+            </div>
           ))}
       </div>
     </div>

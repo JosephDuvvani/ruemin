@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { RequestProvider } from "../context/request-context";
 import Cookies from "universal-cookie";
 import fetchToken from "../utils/refresh-auth";
+import "../assets/styles/chatters.css";
 
 const Chatters = () => {
   const [requests, setRequests] = useState();
@@ -37,18 +38,22 @@ const Chatters = () => {
   return (
     <>
       <Header />
-      <div>
-        <div>
-          <Link to={"./"}>In Chat</Link>
-          <Link to={"suggestions"}>Suggestions</Link>
-          <Link to={"requests"}>Requests</Link>
-        </div>
-        <RequestProvider value={{ requests, setRequests }}>
-          <div>
-            <Outlet />
-          </div>
-        </RequestProvider>
+      <div className="navbar">
+        <Link to={"./"} className="navbar__link">
+          In Chat
+        </Link>
+        <Link to={"suggestions"} className="navbar__link">
+          Suggestions
+        </Link>
+        <Link to={"requests"} className="navbar__link">
+          Requests
+        </Link>
       </div>
+      <RequestProvider value={{ requests, setRequests }}>
+        <div>
+          <Outlet />
+        </div>
+      </RequestProvider>
     </>
   );
 };

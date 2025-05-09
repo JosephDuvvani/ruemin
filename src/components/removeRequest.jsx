@@ -32,7 +32,11 @@ const RemoveRequest = ({ requestId }) => {
     }
   };
 
-  return <button onClick={removeRequest}>Remove</button>;
+  return (
+    <button onClick={removeRequest} className="card__btn remove-btn">
+      Remove
+    </button>
+  );
 };
 
 export default RemoveRequest;

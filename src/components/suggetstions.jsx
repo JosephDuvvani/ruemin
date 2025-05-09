@@ -56,18 +56,18 @@ const Suggestions = () => {
     );
 
   return (
-    <div>
+    <div className="chatters">
       {notInChat &&
         (notInChat.length > 0 ? (
           notInChat.map((chatter) => (
-            <div key={chatter.id}>
+            <div key={chatter.id} className="card">
               <div>
                 <img
                   src={chatter.profile.imageUrl || "/src/assets/profile.jpeg"}
                   alt=""
                 />
               </div>
-              <div>
+              <div className="card__title">
                 {`${chatter.profile.firstname} ${chatter.profile.lastname}`.trim()}
               </div>
               <RequestButton
@@ -78,7 +78,7 @@ const Suggestions = () => {
             </div>
           ))
         ) : (
-          <div>No one in chat. Go to suggestions</div>
+          <div className="card card-empty">No suggestions</div>
         ))}
     </div>
   );

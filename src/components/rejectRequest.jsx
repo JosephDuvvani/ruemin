@@ -34,7 +34,11 @@ const RejectRequest = ({ requestId }) => {
     }
   };
 
-  return <button onClick={rejectRequest}>Reject</button>;
+  return (
+    <button onClick={rejectRequest} className="card__btn card__btn--reject">
+      Reject
+    </button>
+  );
 };
 
 export default RejectRequest;

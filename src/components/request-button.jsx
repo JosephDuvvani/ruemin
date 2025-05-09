@@ -43,7 +43,7 @@ const RequestButton = ({ receiverId, users, setUsers }) => {
   const handleSend = () => requestChat();
 
   return (
-    <button className="request-btn" onClick={handleSend}>
+    <button className="card__btn" onClick={handleSend}>
       Add
     </button>
   );

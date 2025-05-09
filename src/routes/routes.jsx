@@ -20,7 +20,11 @@ const routes = [
         children: [
           {
             index: true,
-            element: <div>Start A Conversation!</div>,
+            element: (
+              <div className="message-block-empty-msg">
+                Start A Conversation!
+              </div>
+            ),
           },
           {
             path: "messages/:chatId",

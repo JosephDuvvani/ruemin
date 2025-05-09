@@ -78,6 +78,7 @@
 
 .account__dropdown {
   right: 0;
+  z-index: 10;
 }
 
 .account__user {
@@ -121,5 +122,11 @@
 @media (max-width: 600px) {
   .account__dropdown {
     width: calc(100vw - 2rem);
+  }
+}
+
+@media (max-width: 400px) {
+  .header__nav {
+    display: none;
   }
 }

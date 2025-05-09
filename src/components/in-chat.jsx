@@ -9,24 +9,26 @@ const InChat = () => {
   );
 
   return (
-    <div>
+    <div className="chatters">
       {inChat &&
         (inChat.length > 0 ? (
           inChat.map((chatter) => (
-            <div key={chatter.id}>
-              <div>
+            <div key={chatter.id} className="card">
+              <div className="card__img">
                 <img
                   src={chatter.profile.imageUrl || "/src/assets/profile.jpeg"}
                   alt=""
                 />
               </div>
-              <div>
+              <div className="card__title">
                 {`${chatter.profile.firstname} ${chatter.profile.lastname}`.trim()}
               </div>
             </div>
           ))
         ) : (
-          <div>No one in chat. Go to suggestions</div>
+          <div className="card card-empty">
+            No one in chat. Go to suggestions
+          </div>
         ))}
     </div>
   );

@@ -39,7 +39,11 @@ const AcceptRequest = ({ requestId }) => {
     }
   };
 
-  return <button onClick={acceptRequest}>Accept</button>;
+  return (
+    <button onClick={acceptRequest} className="card__btn accept-btn">
+      Accept
+    </button>
+  );
 };
 
 export default AcceptRequest;
