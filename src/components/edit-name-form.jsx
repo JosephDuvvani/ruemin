@@ -71,7 +71,7 @@ const EditNameForm = ({ setEditContent }) => {
 
         <div className="edit-form__btns">
           <button
-            className="name-form__btn"
+            className="edit-form__btn"
             type="submit"
             disabled={
               firstChars === 30 ||

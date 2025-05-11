@@ -95,6 +95,11 @@ img {
   width: 100%;
 }
 
+button:disabled {
+  opacity: 0.5;
+  cursor: context-menu;
+}
+
 /* Utility Classes */
 .h-100v {
   height: 100svh;
@@ -102,6 +107,7 @@ img {
 
 .overlay {
   position: absolute;
+  isolation: isolate;
   inset: 0;
   background-color: var(--bg-overlay-light);
   overflow-y: scroll;
@@ -130,6 +136,7 @@ img {
   top: 1rem;
   right: 1rem;
   cursor: pointer;
+  z-index: -1;
 }
 
 .close-overlay:hover,
@@ -153,8 +160,9 @@ img {
 .profile-edit {
   background-color: #fff;
   max-width: 700px;
-  margin: 4rem auto;
+  margin: 5rem auto;
   box-shadow: var(--box-shadow);
+  border-radius: 8px;
 }
 
 .edit-form {
@@ -305,11 +313,29 @@ img {
 .profile-edit__header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-bottom: 1rem;
 }
 
 .profile-edit__heading {
   font-size: 1.2rem;
+}
+
+.profile-edit__btn {
+  background-color: var(--green-600);
+  padding: 0.35rem 1rem;
+  border: none;
+  border-radius: var(--border-rad-button);
+  font-weight: 600;
+  color: var(--bg-deemphasized);
+  cursor: pointer;
+  transition: background 150ms;
+}
+
+.profile-edit__btn:hover,
+.profile-edit__btn:focus {
+  outline: none;
+  background-color: var(--green-700);
 }
 
 .profile-edit__picture {
@@ -332,17 +358,28 @@ img {
   padding-inline: 1rem;
 }
 
+.edit-form__input,
 .edit-form__textarea {
   background-color: var(--bg-deemphasized);
+  padding: 0.5rem 0.75rem;
   border: 1px solid var(--bg-deemphasized-icon);
-  padding: 0.75rem;
-  word-break: break-all;
+  border-radius: var(--border-rad-button);
 }
 
+.edit-form__input {
+  margin-bottom: 0.25rem;
+}
+
+.edit-form__input:focus,
 .edit-form__textarea:focus {
   outline: none;
   background-color: #fff;
-  border-color: var(--clr-body);
+  border-color: var(--green-900);
+}
+
+.edit-form__textarea {
+  min-height: 6rem;
+  word-break: break-all;
 }
 
 .edit-form__char-limit {
@@ -355,6 +392,24 @@ img {
   display: flex;
   gap: 0.75rem;
   justify-self: end;
+}
+
+.edit-form__btn {
+  background-color: hsl(198, 72%, 90%);
+  padding: 0.35rem 1rem;
+  border: none;
+  border-radius: var(--border-rad-button);
+  font-weight: 600;
+  color: hsl(205, 8%, 30%);
+  cursor: pointer;
+  transition: background 150ms, color 150ms;
+}
+
+.edit-form__btn:hover,
+.edit-form__btn:focus {
+  outline: none;
+  background-color: hsl(205, 74%, 94%);
+  color: hsl(205, 8%, 40%);
 }
 
 .chat__link {
@@ -487,6 +542,23 @@ img {
   padding: 0.5rem 1rem;
   position: sticky;
   bottom: 0;
+}
+
+/* Modifiers */
+.overlay--no-scroll {
+  overflow-y: auto;
+}
+
+.edit-form__btn--cancel {
+  background-color: hsl(0, 0%, 88%);
+  color: var(--clr-body);
+}
+
+.edit-form__btn--cancel:hover,
+.edit-form__btn--cancel:focus {
+  outline: none;
+  background-color: var(--bg-deemphasized-btn);
+  color: hsl(0, 0%, 35%);
 }
 
 /* Media Queries */
