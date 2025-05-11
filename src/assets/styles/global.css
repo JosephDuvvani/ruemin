@@ -70,6 +70,8 @@ p {
 
   --box-shadow-100: 0 1px 2px 1px hsl(0 0 0 / 0.1);
   --box-shadow: 0 1px 5px 1px hsl(0 0 0 / 0.1);
+
+  --bg-overlay-light: hsl(0 0 100 / 0.5);
 }
 
 /* Global */
@@ -98,9 +100,45 @@ img {
   height: 100svh;
 }
 
+.overlay {
+  position: absolute;
+  inset: 0;
+  background-color: var(--bg-overlay-light);
+  overflow-y: scroll;
+}
+
+.custom-placeholder {
+  color: var(--clr-caption);
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.custom-input-wrapper {
+  position: relative;
+}
+
+.close-overlay {
+  padding: 0.25rem;
+  border: none;
+  border-radius: 50vh;
+  background-color: gray;
+  color: var(--bg-deemphasized);
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  cursor: pointer;
+}
+
+.close-overlay:hover,
+.close-overlay:focus {
+  background-color: rgb(153, 153, 153);
+}
+
 /* Blocks */
 .banner {
-  isolation: isolate;
   z-index: 2;
 }
 
@@ -110,6 +148,21 @@ img {
   margin-top: 0.35rem;
   border-inline: 2px solid var(--green-700);
   box-shadow: var(--box-shadow);
+}
+
+.profile-edit {
+  background-color: #fff;
+  max-width: 700px;
+  margin: 4rem auto;
+  box-shadow: var(--box-shadow);
+}
+
+.edit-form {
+  display: grid;
+  gap: 0.25rem;
+  min-width: 300px;
+  margin-block: 1.5rem;
+  justify-self: center;
 }
 
 .chats-grid {
@@ -232,6 +285,76 @@ img {
 
 .navbar__link.inbox:hover {
   background-color: transparent;
+}
+
+.profile-edit__title {
+  width: 100%;
+  padding-block: 0.75rem;
+  border-bottom: 1px solid var(--bg-deemphasized-icon);
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.profile-edit__block {
+  display: grid;
+  padding-bottom: 2rem;
+  padding: 1rem;
+}
+
+.profile-edit__header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.profile-edit__heading {
+  font-size: 1.2rem;
+}
+
+.profile-edit__picture {
+  min-width: 150px;
+  border-radius: 50vh;
+  justify-self: center;
+  overflow: hidden;
+}
+
+.profile-edit__name {
+  display: flex;
+  align-items: end;
+  gap: 0.5rem;
+  padding-inline: 1rem;
+}
+
+.profile-edit__bio {
+  max-width: fit-content;
+  margin: auto;
+  padding-inline: 1rem;
+}
+
+.edit-form__textarea {
+  background-color: var(--bg-deemphasized);
+  border: 1px solid var(--bg-deemphasized-icon);
+  padding: 0.75rem;
+  word-break: break-all;
+}
+
+.edit-form__textarea:focus {
+  outline: none;
+  background-color: #fff;
+  border-color: var(--clr-body);
+}
+
+.edit-form__char-limit {
+  justify-self: end;
+  font-size: var(--fs-caption);
+  color: var(--clr-caption);
+}
+
+.edit-form__btns {
+  display: flex;
+  gap: 0.75rem;
+  justify-self: end;
 }
 
 .chat__link {
@@ -360,7 +483,6 @@ img {
 }
 
 .message-block__footer {
-  /* display: grid; */
   background-color: #fff;
   padding: 0.5rem 1rem;
   position: sticky;

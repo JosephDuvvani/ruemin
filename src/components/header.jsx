@@ -7,11 +7,12 @@ import Cookies from "universal-cookie";
 import UserContext from "../context/user-context";
 import fetchToken from "../utils/refresh-auth";
 import "../assets/styles/header.css";
+import EditProfile from "./edit-profile";
 
 const Header = () => {
-  const { user } = useContext(UserContext);
-  const [userDetails, setUserDetails] = useState();
+  const { user, setUser } = useContext(UserContext);
   const [dropdown, setDropdown] = useState(false);
+  const [editProfile, setEditProfile] = useState(false);
 
   useEffect(() => {
     const fetchUserDetails = async () => {
@@ -33,12 +34,12 @@ const Header = () => {
           .then((res) => res.json())
           .then((data) => {
             if (data.error) console.error(data.error.msg);
-            else setUserDetails(data.user);
+            else setUser({ ...user, profile: data.user.profile });
           });
       }
     };
 
-    if (user) fetchUserDetails();
+    if (user && !user.profile) fetchUserDetails();
 
     const handleBodyClick = (e) => {
       if (!dropdown || e.target.dataset.type === "account-button") return;
@@ -86,7 +87,10 @@ const Header = () => {
         >
           <img
             className="account__btn__img"
-            src={userDetails?.profile.imageUrl || "/src/assets/profile.jpeg"}
+            src={
+              user?.profile &&
+              (user?.profile.imageUrl || "/src/assets/profile.jpeg")
+            }
             alt=""
           />
 
@@ -95,8 +99,13 @@ const Header = () => {
           </span>
         </button>
 
-        {dropdown && <AccountDropdown user={userDetails} />}
+        {dropdown && (
+          <AccountDropdown user={user} setEditProfile={setEditProfile} />
+        )}
       </div>
+      {editProfile && user && (
+        <EditProfile profile={user.profile} setEditProfile={setEditProfile} />
+      )}
     </header>
   );
 };

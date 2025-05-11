@@ -100,6 +100,23 @@
   border-radius: 50vh;
 }
 
+.account__user__title {
+  flex: 1;
+}
+
+.edit-btn {
+  justify-items: center;
+  background-color: transparent;
+  border: none;
+  pointer-events: all;
+  cursor: pointer;
+}
+
+.edit-btn:hover,
+.edit-btn:focus {
+  color: #6b6b6b;
+}
+
 .header__dropdown__btn {
   display: flex;
   align-items: center;
