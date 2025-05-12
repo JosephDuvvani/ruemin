@@ -61,7 +61,7 @@ const Suggestions = () => {
         (notInChat.length > 0 ? (
           notInChat.map((chatter) => (
             <div key={chatter.id} className="card">
-              <div>
+              <div className="card__img">
                 <img
                   src={chatter.profile.imageUrl || "/src/assets/profile.jpeg"}
                   alt=""

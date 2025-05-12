@@ -21,6 +21,10 @@
 }
 
 /* Elements */
+.card__img {
+  aspect-ratio: 1/1;
+  overflow: hidden;
+}
 .card__title {
   padding: 0.5rem;
   font-weight: 600;

@@ -339,7 +339,8 @@ button:disabled {
 }
 
 .profile-edit__picture {
-  min-width: 150px;
+  width: 180px;
+  height: 180px;
   border-radius: 50vh;
   justify-self: center;
   overflow: hidden;
@@ -431,6 +432,7 @@ button:disabled {
 
 .chat__link__img {
   width: 60px;
+  height: 60px;
   border-radius: 50vh;
   overflow: hidden;
 }
@@ -460,7 +462,9 @@ button:disabled {
 }
 
 .message-block__header {
-  display: flex;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: min-content 1fr;
   align-items: center;
   gap: var(--gap-small);
   background-color: #fff;
@@ -472,10 +476,15 @@ button:disabled {
 
 .message-block__header__img {
   width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50vh;
+  overflow: hidden;
+  isolation: isolate;
 }
 
 .receiver__img {
   width: 58px;
+  height: 58px;
   border-radius: 50vh;
   overflow: hidden;
 }

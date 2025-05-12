@@ -18,7 +18,7 @@ const Requests = () => {
           (sent.length > 0 ? (
             sent.map((req) => (
               <div key={req.id} className="card">
-                <div>
+                <div className="card__img">
                   <img
                     src={
                       req.receiver.profile.imageUrl ||
@@ -46,7 +46,7 @@ const Requests = () => {
           (received.length > 0 ? (
             received.map((req) => (
               <div key={req.id} className="card">
-                <div>
+                <div className="card__img">
                   <img
                     src={
                       req.sender.profile.imageUrl || "/src/assets/profile.jpeg"

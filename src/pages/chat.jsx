@@ -75,7 +75,7 @@ const Chat = () => {
     <>
       {receiver && (
         <div className="message-block__header">
-          <div className="chat__link__img message-block__header__img">
+          <div className="message-block__header__img">
             <img
               src={receiver.profile.imageUrl || "/src/assets/profile.jpeg"}
               alt=""
