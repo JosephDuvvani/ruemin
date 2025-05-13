@@ -119,7 +119,7 @@ const Chat = () => {
                   <div className="message__content">
                     <span>{msg.content}</span>
                     <div className="message__date">
-                      {format(msg.sentAt, "dd/MM/yyyy, HH:ss")}
+                      {format(msg.sentAt, "dd/MM/yyyy, HH:mm")}
                     </div>
                   </div>
                 </div>
