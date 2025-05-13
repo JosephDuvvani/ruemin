@@ -19,11 +19,19 @@ const EditProfile = ({ setEditProfile }) => {
         <div className="profile-edit__block">
           <div className="profile-edit__header">
             <h3 className="profile-edit__heading">Profile Picture</h3>
-            <button className="profile-edit__btn">Edit</button>
+            <button
+              className="profile-edit__btn"
+              onClick={() => setEditContent("picture")}
+            >
+              Edit
+            </button>
           </div>
           <div className="profile-edit__picture">
             <img src={profile.imageUrl || "/src/assets/profile.jpeg"} alt="" />
           </div>
+          {editContent === "picture" && (
+            <EditPicture setEditContent={setEditContent} />
+          )}
         </div>
 
         <div className="profile-edit__block">

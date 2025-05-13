@@ -277,6 +277,31 @@ button:disabled {
   pointer-events: none;
 }
 
+.upload {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.35rem;
+  background-color: hsl(198, 72%, 90%);
+  max-width: 50%;
+  min-width: fit-content;
+  padding: 0.5rem 1rem 0.5rem 0.75rem;
+  border-radius: var(--border-rad-button);
+  font-weight: 600;
+  cursor: pointer;
+  position: relative;
+}
+
+.loading {
+  position: absolute;
+  inset: 0;
+  background-color: hsl(0 0 100 / 0.7);
+}
+
+.upload__input {
+  display: none;
+}
+
 /* Elements */
 .navbar__link {
   padding: 0.5rem 1rem;
@@ -553,6 +578,15 @@ button:disabled {
   bottom: 0;
 }
 
+.loading__icon {
+  position: absolute;
+  top: 50%;
+  left: calc(100% + 1.5rem);
+  transform: translate(-50%, -50%) rotateZ(0deg);
+  animation: load 400ms ease-out infinite;
+  pointer-events: none;
+}
+
 /* Modifiers */
 .overlay--no-scroll {
   overflow-y: auto;
@@ -574,5 +608,15 @@ button:disabled {
 @media (max-width: 300px) {
   .chat__link__date {
     display: none;
+  }
+}
+
+/* Keyframes */
+@keyframes load {
+  0% {
+    transform: translate(-50%, -50%) rotateZ(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotateZ(360deg);
   }
 }
