@@ -111,6 +111,7 @@ button:disabled {
   inset: 0;
   background-color: var(--bg-overlay-light);
   overflow-y: scroll;
+  z-index: 1;
 }
 
 .custom-placeholder {
@@ -132,11 +133,16 @@ button:disabled {
   border-radius: 50vh;
   background-color: gray;
   color: var(--bg-deemphasized);
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
   cursor: pointer;
-  z-index: -1;
+}
+
+.overlay__header {
+  display: grid;
+  grid-template-columns: 1fr min-content;
+  justify-items: center;
+  position: relative;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--bg-deemphasized-icon);
 }
 
 .close-overlay:hover,
@@ -321,12 +327,14 @@ button:disabled {
 }
 
 .profile-edit__title {
-  width: 100%;
-  padding-block: 0.75rem;
-  border-bottom: 1px solid var(--bg-deemphasized-icon);
+  width: calc(100% - 2.5rem);
   font-size: 1.5rem;
   font-weight: 600;
   text-align: center;
+  transform: translateX(1rem);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .profile-edit__block {

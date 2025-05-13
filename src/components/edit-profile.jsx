@@ -15,7 +15,17 @@ const EditProfile = ({ setEditProfile }) => {
   return (
     <div className="overlay">
       <div className="profile-edit">
-        <div className="profile-edit__title">Edit Profile</div>
+        <div className="overlay__header">
+          <div className="profile-edit__title">Edit Profile</div>
+          <button
+            className="close-overlay"
+            onClick={() => setEditProfile(false)}
+          >
+            <span>
+              <Icon path={mdiClose} size={1} />
+            </span>
+          </button>
+        </div>
         <div className="profile-edit__block">
           <div className="profile-edit__header">
             <h3 className="profile-edit__heading">Profile Picture</h3>
@@ -79,11 +89,6 @@ const EditProfile = ({ setEditProfile }) => {
           )}
         </div>
       </div>
-      <button className="close-overlay" onClick={() => setEditProfile(false)}>
-        <span>
-          <Icon path={mdiClose} size={1} />
-        </span>
-      </button>
     </div>
   );
 };
