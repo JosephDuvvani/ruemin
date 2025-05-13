@@ -150,6 +150,25 @@ button:disabled {
   background-color: rgb(153, 153, 153);
 }
 
+.back-btn {
+  background-color: transparent;
+  padding: 0.25rem;
+  border: 2px solid transparent;
+  border-radius: 50vh;
+  color: var(--purple);
+  cursor: pointer;
+}
+
+.back-btn:hover,
+.back-btn:focus {
+  background-color: var(--bg-deemphasized-icon);
+}
+
+.back-btn:focus-visible {
+  outline: none;
+  border-color: hsl(198, 72%, 50%);
+}
+
 /* Blocks */
 .banner {
   z-index: 2;
@@ -185,12 +204,12 @@ button:disabled {
 }
 
 .chats {
+  display: grid;
+  grid-template-rows: min-content 1fr;
   background-color: #fff;
   max-width: 22.5rem;
-  padding: 1rem 0.25rem;
   width: 100%;
-  overflow-y: scroll;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 .chat-empty {
@@ -446,6 +465,29 @@ button:disabled {
   color: hsl(205, 8%, 40%);
 }
 
+.chats__header {
+  background-color: #fff;
+  padding: 0.75rem;
+  position: sticky;
+  top: 0;
+}
+
+.chats__title {
+  max-width: fit-content;
+  margin-top: 0.5rem;
+  padding: 0.35rem 1rem;
+  background-color: hsl(198, 72%, 90%);
+  border-radius: 50vh;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.chats__nav {
+  overflow-y: scroll;
+  height: 100%;
+  padding: 0rem 0.25rem 2rem;
+}
+
 .chat__link {
   display: grid;
   grid-template-columns: min-content 1fr;
@@ -461,6 +503,10 @@ button:disabled {
 .chat__link:focus {
   outline: none;
   background-color: var(--bg-deemphasized-btn);
+}
+
+.chat__link.active {
+  background-color: var(--green-50);
 }
 
 .chat__link__img {
@@ -497,7 +543,7 @@ button:disabled {
 .message-block__header {
   display: grid;
   grid-auto-flow: column;
-  grid-template-columns: min-content 1fr;
+  grid-template-columns: min-content min-content 1fr;
   align-items: center;
   gap: var(--gap-small);
   background-color: #fff;
@@ -615,6 +661,20 @@ button:disabled {
 /* Media Queries */
 @media (max-width: 300px) {
   .chat__link__date {
+    display: none;
+  }
+}
+
+@media (max-width: 700px) {
+  .chats-grid:not(.active) .message-block {
+    display: none;
+  }
+  .chats-grid:not(.active) .chats {
+    max-width: none;
+    margin: 1rem;
+    border-radius: 8px;
+  }
+  .chats-grid.active .chats {
     display: none;
   }
 }

@@ -1,15 +1,20 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import Icon from "@mdi/react";
+import { mdiArrowLeftThick } from "@mdi/js";
 import UserContext from "../context/user-context";
 import { format } from "date-fns";
 import Cookies from "universal-cookie";
 import fetchToken from "../utils/refresh-auth";
+import { IsActiveContext } from "./home";
 
 const Chat = () => {
   const { chatId } = useParams();
   const { user, inbox, setInbox } = useContext(UserContext);
   const [text, setText] = useState("");
   const [placeholder, setPlaceholder] = useState(true);
+  const navigate = useNavigate();
+  const { setActive } = useContext(IsActiveContext);
 
   const chat = inbox?.find((chat) => chat.id === chatId);
   const receiver = chat?.users.find((chatter) => chatter.id !== user.id);
@@ -71,10 +76,17 @@ const Chat = () => {
       sendMessage();
     }
   };
+  const handleBack = () => {
+    setActive(null);
+    navigate("/");
+  };
   return (
     <>
       {receiver && (
         <div className="message-block__header">
+          <button className="back-btn" onClick={handleBack}>
+            <Icon path={mdiArrowLeftThick} size={1} />
+          </button>
           <div className="message-block__header__img">
             <img
               src={receiver.profile.imageUrl || "/src/assets/profile.jpeg"}
