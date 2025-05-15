@@ -1,7 +1,13 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Icon from "@mdi/react";
-import { mdiArrowLeftThick } from "@mdi/js";
+import {
+  mdiArrowLeftThick,
+  mdiLoading,
+  mdiRefresh,
+  mdiSend,
+  mdiSendLock,
+} from "@mdi/js";
 import UserContext from "../context/user-context";
 import { format } from "date-fns";
 import Cookies from "universal-cookie";
@@ -13,6 +19,8 @@ const Chat = () => {
   const { user, inbox, setInbox } = useContext(UserContext);
   const [text, setText] = useState("");
   const [placeholder, setPlaceholder] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
+  const [sending, setSending] = useState(false);
   const navigate = useNavigate();
   const { setActive } = useContext(IsActiveContext);
 
@@ -20,20 +28,58 @@ const Chat = () => {
   const receiver = chat?.users.find((chatter) => chatter.id !== user.id);
 
   const inputRef = useRef();
+  const sendingRef = useRef();
 
   useEffect(() => {
     if (text.length > 0 && placeholder) setPlaceholder(false);
     if (text.length === 0 && !placeholder) setPlaceholder(true);
   }, [text]);
 
+  useEffect(() => {
+    sendingRef.current?.focus();
+  }, [chatId, chat?.messages.length]);
+
+  const refreshChat = async () => {
+    setRefreshing(true);
+    const apiURL = import.meta.env.VITE_RUEMIN_API_URL;
+    const cookies = new Cookies(null, { path: "/" });
+    let accessToken = cookies.get("jwt-access-ruemin");
+    if (!accessToken) {
+      accessToken = await fetchToken();
+    }
+
+    if (accessToken) {
+      const options = {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      };
+
+      fetch(`${apiURL}/chats/${chatId}`, options)
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.error) console.error(data.error.msg);
+          else
+            setInbox(
+              inbox.map((chat) => (chat.id === chatId ? data.chat : chat))
+            );
+        })
+        .finally(() => setRefreshing(false));
+    }
+  };
+
   const handleSend = (e) => {
-    if (e.key === "Enter") {
+    if (e.key === "Enter" || e.target.dataset.send) {
       e.preventDefault();
+      if (refreshing) return;
       if (text.trim().length === 0 || !text) {
         inputRef.current.textContent = "";
         setText("");
         return;
       }
+      setSending(true);
+      sendingRef.current.focus();
       const sendMessage = async () => {
         const apiURL = import.meta.env.VITE_RUEMIN_API_URL;
         const cookies = new Cookies(null, { path: "/" });
@@ -69,6 +115,7 @@ const Chat = () => {
             })
             .finally(() => {
               inputRef.current.textContent = "";
+              setSending(false);
               setText("");
             });
         }
@@ -97,6 +144,22 @@ const Chat = () => {
           <span className="chat__link__title message-block__header__title">
             {`${receiver.profile.firstname} ${receiver.profile.lastname}`.trim()}
           </span>
+          {!refreshing && (
+            <button
+              className="refresh-chat back-btn"
+              title="Refresh chat"
+              onClick={refreshChat}
+            >
+              <Icon path={mdiRefresh} size={1} />
+            </button>
+          )}
+          {refreshing && (
+            <div className="loading--chat">
+              <div className="loading__icon">
+                <Icon path={mdiLoading} size={1} />
+              </div>
+            </div>
+          )}
         </div>
       )}
       <div className="message-block__messages">
@@ -136,6 +199,19 @@ const Chat = () => {
                   </div>
                 </div>
               ))}
+
+              <div
+                ref={sendingRef}
+                className="loading"
+                aria-hidden
+                tabIndex={-1}
+              >
+                {sending && (
+                  <div className="loading__icon">
+                    <Icon path={mdiLoading} size={1} />
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         )}
@@ -155,6 +231,24 @@ const Chat = () => {
               Send a message
             </div>
           )}
+          <button
+            className="send-btn back-btn"
+            title={
+              refreshing
+                ? "Still refreshing chat"
+                : text.trim() == ""
+                ? "Write a message"
+                : "Press Enter to send"
+            }
+            onClick={handleSend}
+            data-send={true}
+            disabled={refreshing || text.trim() == ""}
+          >
+            <Icon
+              path={refreshing || text.trim() == "" ? mdiSendLock : mdiSend}
+              size={1}
+            />
+          </button>
         </div>
       </div>
     </>

@@ -60,10 +60,19 @@ const EditPicture = ({ setEditContent }) => {
         </div>
         <div className="profile-edit__block">
           <label className="upload">
-            <span className="upload__icon">
-              <Icon path={mdiPlus} size={1} />
-            </span>
-            <span>Upload</span>
+            {!loading && (
+              <>
+                <span className="upload__icon">
+                  <Icon path={mdiPlus} size={1} />
+                </span>
+                <span>Upload</span>
+              </>
+            )}
+            {loading && (
+              <div className="loading">
+                <Icon className="loading__icon" path={mdiLoading} size={1.2} />
+              </div>
+            )}
             <input
               className="upload__input"
               ref={inputRef}
@@ -72,11 +81,6 @@ const EditPicture = ({ setEditContent }) => {
               onChange={handleUpload}
               disabled={loading}
             />
-            {loading && (
-              <div className="loading">
-                <Icon className="loading__icon" path={mdiLoading} size={1.2} />
-              </div>
-            )}
           </label>
         </div>
       </div>

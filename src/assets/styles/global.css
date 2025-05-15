@@ -93,6 +93,7 @@ svg,
 img {
   display: block;
   width: 100%;
+  pointer-events: none;
 }
 
 button:disabled {
@@ -279,7 +280,8 @@ button:disabled {
 
 .message-area {
   position: relative;
-  display: grid;
+  display: flex;
+  gap: 0.25rem;
 }
 
 .message-input {
@@ -287,6 +289,7 @@ button:disabled {
   padding: 0.5rem 1rem;
   border-radius: 18px;
   margin: 0;
+  flex: 1;
 }
 
 .message-input:focus {
@@ -318,9 +321,8 @@ button:disabled {
 }
 
 .loading {
-  position: absolute;
-  inset: 0;
-  background-color: hsl(0 0 100 / 0.7);
+  display: flex;
+  justify-content: center;
 }
 
 .upload__input {
@@ -633,10 +635,7 @@ button:disabled {
 }
 
 .loading__icon {
-  position: absolute;
-  top: 50%;
-  left: calc(100% + 1.5rem);
-  transform: translate(-50%, -50%) rotateZ(0deg);
+  transform: rotateZ(0deg);
   animation: load 400ms ease-out infinite;
   pointer-events: none;
 }
@@ -656,6 +655,10 @@ button:disabled {
   outline: none;
   background-color: var(--bg-deemphasized-btn);
   color: hsl(0, 0%, 35%);
+}
+
+.loading--chat {
+  padding: 5px;
 }
 
 /* Media Queries */
@@ -682,9 +685,9 @@ button:disabled {
 /* Keyframes */
 @keyframes load {
   0% {
-    transform: translate(-50%, -50%) rotateZ(0deg);
+    transform: rotateZ(0deg);
   }
   100% {
-    transform: translate(-50%, -50%) rotateZ(360deg);
+    transform: rotateZ(360deg);
   }
 }
