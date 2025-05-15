@@ -35,6 +35,10 @@ p {
   isolation: isolate;
 }
 
+button * {
+  pointer-events: none;
+}
+
 /* Variables */
 :root {
   --green-50: #eefae8;

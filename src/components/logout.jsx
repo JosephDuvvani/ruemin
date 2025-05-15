@@ -39,6 +39,7 @@ const LogoutButton = () => {
       className="header__dropdown__btn account__dropdown__btn"
       onClick={handleClick}
       disabled={logging}
+      data-logout={true}
     >
       <div className="circle-bg-icon">
         <Icon path={mdiLogout} />

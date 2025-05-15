@@ -42,7 +42,12 @@ const Header = () => {
     if (user && !user.profile) fetchUserDetails();
 
     const handleBodyClick = (e) => {
-      if (!dropdown || e.target.dataset.type === "account-button") return;
+      if (
+        !dropdown ||
+        e.target.dataset.type === "account-button" ||
+        e.target.dataset.logout
+      )
+        return;
       else if (!e.target.dataset.dropdown) setDropdown(!dropdown);
     };
 

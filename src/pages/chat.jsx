@@ -205,12 +205,7 @@ const Chat = () => {
                 </div>
               ))}
 
-              <div
-                ref={sendingRef}
-                className="loading"
-                aria-hidden
-                tabIndex={-1}
-              >
+              <div ref={sendingRef} className="loading" tabIndex={-1}>
                 {sending && (
                   <div className="loading__icon">
                     <Icon path={mdiLoading} size={1} />
