@@ -4,12 +4,14 @@ import Cookies from "universal-cookie";
 import isAuth from "../utils/guardAuth";
 import { jwtDecode } from "jwt-decode";
 import UserContext from "../context/user-context";
+import LoadingSpinner from "../components/loading-spinner";
 
 const Signup = () => {
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
   const [firstname, setFirstname] = useState();
   const [lastname, setLastname] = useState();
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState();
   const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
@@ -35,10 +37,11 @@ const Signup = () => {
         lastname,
       }),
     };
-
+    setLoading(true);
     fetch(`${apiURL}/signup`, options)
       .then((res) => res.json())
       .then((data) => {
+        setLoading(false);
         if (data.errors) setError(data.errors[0]);
         else if (data.error) console.error(data.error.message);
         else {
@@ -132,7 +135,15 @@ const Signup = () => {
             </label>
           </div>
 
-          <button className="auth__form__btn">Sign Up</button>
+          <button className="auth__form__btn" disabled={loading}>
+            {!loading ? (
+              "Sign Up"
+            ) : (
+              <div className="loading">
+                <LoadingSpinner size={0.85} />
+              </div>
+            )}
+          </button>
 
           <div className="btn">
             <Link to={"../login"} className="auth__form__link auth__form__btn">

@@ -2,11 +2,13 @@ import { useContext, useState } from "react";
 import Cookies from "universal-cookie";
 import fetchToken from "../utils/refresh-auth";
 import UserContext from "../context/user-context";
+import LoadingSpinner from "./loading-spinner";
 
 const EditNameForm = ({ setEditContent }) => {
   const { user, setUser } = useContext(UserContext);
   const [first, setFirst] = useState(user.profile?.firstname);
   const [last, setLast] = useState(user.profile?.lastname);
+  const [loading, setLoading] = useState(false);
 
   const firstChars = 30 - first.length;
   const lastChars = 30 - last.length;
@@ -33,10 +35,11 @@ const EditNameForm = ({ setEditContent }) => {
           lastname: last.trim(),
         }),
       };
-
+      setLoading(true);
       fetch(`${apiURL}/profiles/${user.profile.id}/name`, options)
         .then((res) => res.json())
         .then((data) => {
+          setLoading(false);
           if (data.updated) {
             setUser({ ...user, profile: { ...user.profile, ...data.updated } });
             setEditContent(null);
@@ -70,6 +73,11 @@ const EditNameForm = ({ setEditContent }) => {
         />
 
         <div className="edit-form__btns">
+          {loading && (
+            <div className="loading" aria-hidden>
+              <LoadingSpinner />
+            </div>
+          )}
           <button
             className="edit-form__btn"
             type="submit"
@@ -78,7 +86,8 @@ const EditNameForm = ({ setEditContent }) => {
               firstChars < 0 ||
               lastChars < 0 ||
               (first === user.profile.firstname &&
-                last === user.profile.lastname)
+                last === user.profile.lastname) ||
+              loading
             }
           >
             Save

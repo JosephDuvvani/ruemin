@@ -1,9 +1,11 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import RequestContext from "../context/request-context";
 import Cookies from "universal-cookie";
 import fetchToken from "../utils/refresh-auth";
+import LoadingSpinner from "./loading-spinner";
 
 const RejectRequest = ({ requestId }) => {
+  const [loading, setLoading] = useState(false);
   const { requests, setRequests } = useContext(RequestContext);
 
   const rejectRequest = async () => {
@@ -21,7 +23,9 @@ const RejectRequest = ({ requestId }) => {
           Authorization: `Bearer ${accessToken}`,
         },
       };
+      setLoading(true);
       fetch(`${apiURL}/requests/${requestId}/reject`, options).then((res) => {
+        setLoading(false);
         if (res.status === 204) {
           setRequests({
             ...requests,
@@ -35,8 +39,18 @@ const RejectRequest = ({ requestId }) => {
   };
 
   return (
-    <button onClick={rejectRequest} className="card__btn card__btn--reject">
-      Reject
+    <button
+      onClick={rejectRequest}
+      className="card__btn card__btn--reject"
+      disabled={loading}
+    >
+      {!loading ? (
+        "Reject"
+      ) : (
+        <div className="loading">
+          <LoadingSpinner size={0.85} />
+        </div>
+      )}
     </button>
   );
 };

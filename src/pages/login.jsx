@@ -5,10 +5,12 @@ import isAuth from "../utils/guardAuth";
 import { jwtDecode } from "jwt-decode";
 import UserContext from "../context/user-context";
 import "../assets/styles/auth-forms.css";
+import LoadingSpinner from "../components/loading-spinner";
 
 const Login = () => {
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState();
   const navigate = useNavigate();
   const { setUser } = useContext(UserContext);
@@ -32,10 +34,11 @@ const Login = () => {
         password,
       }),
     };
-
+    setLoading(true);
     fetch(`${apiURL}/login`, options)
       .then((res) => res.json())
       .then((data) => {
+        setLoading(false);
         if (data.errors) setError(data.errors[0]);
         else if (data.error) console.error(data.error.message);
         else {
@@ -81,7 +84,15 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
 
-          <button className="auth__form__btn">Log In</button>
+          <button className="auth__form__btn" disabled={loading}>
+            {!loading ? (
+              "Log In"
+            ) : (
+              <div className="loading">
+                <LoadingSpinner size={0.85} />
+              </div>
+            )}
+          </button>
           <Link to={"../signup"} className="auth__form__link auth__form__btn">
             Create new account
           </Link>

@@ -1,10 +1,12 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import RequestContext from "../context/request-context";
 import Cookies from "universal-cookie";
 import fetchToken from "../utils/refresh-auth";
 import UserContext from "../context/user-context";
+import LoadingSpinner from "./loading-spinner";
 
 const AcceptRequest = ({ requestId }) => {
+  const [loading, setLoading] = useState(false);
   const { inbox, setInbox } = useContext(UserContext);
   const { requests, setRequests } = useContext(RequestContext);
 
@@ -23,9 +25,11 @@ const AcceptRequest = ({ requestId }) => {
           Authorization: `Bearer ${accessToken}`,
         },
       };
+      setLoading(true);
       fetch(`${apiURL}/requests/${requestId}/accept`, options)
         .then((res) => res.json())
         .then((data) => {
+          setLoading(false);
           if (data.chat) {
             setRequests({
               ...requests,
@@ -40,8 +44,18 @@ const AcceptRequest = ({ requestId }) => {
   };
 
   return (
-    <button onClick={acceptRequest} className="card__btn accept-btn">
-      Accept
+    <button
+      onClick={acceptRequest}
+      className="card__btn accept-btn"
+      disabled={loading}
+    >
+      {!loading ? (
+        "Accept"
+      ) : (
+        <div className="loading">
+          <LoadingSpinner size={0.85} />
+        </div>
+      )}
     </button>
   );
 };

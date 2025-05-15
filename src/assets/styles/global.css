@@ -106,6 +106,10 @@ button:disabled {
   height: 100svh;
 }
 
+.mrgn-t-3 {
+  margin-top: 3rem;
+}
+
 .overlay {
   position: absolute;
   isolation: isolate;
@@ -659,6 +663,16 @@ button:disabled {
 
 .loading--chat {
   padding: 5px;
+}
+
+.header__dropdown__btn__text {
+  flex: 1;
+  text-align: start;
+}
+
+.custom-placeholder--bio {
+  top: 1.2rem;
+  left: 0.8rem;
 }
 
 /* Media Queries */

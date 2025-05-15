@@ -2,10 +2,13 @@ import { useContext, useEffect, useRef, useState } from "react";
 import Cookies from "universal-cookie";
 import fetchToken from "../utils/refresh-auth";
 import UserContext from "../context/user-context";
+import Icon from "@mdi/react";
+import LoadingSpinner from "./loading-spinner";
 
 const EditBioForm = ({ setEditContent }) => {
   const { user, setUser } = useContext(UserContext);
   const [bio, setBio] = useState(user.profile?.bio || "");
+  const [loading, setLoading] = useState(false);
 
   const inputRef = useRef();
 
@@ -45,10 +48,11 @@ const EditBioForm = ({ setEditContent }) => {
           bio: bio.trim(),
         }),
       };
-
+      setLoading(true);
       fetch(`${apiURL}/profiles/${user.profile.id}/bio`, options)
         .then((res) => res.json())
         .then((data) => {
+          setLoading(false);
           if (data.updated) {
             setUser({ ...user, profile: { ...user.profile, ...data.updated } });
             setEditContent(null);
@@ -77,7 +81,10 @@ const EditBioForm = ({ setEditContent }) => {
       <div className="edit-form">
         <div className="custom-input-wrapper bio-input-wrapper">
           {bio == "" && (
-            <span className="custom-placeholder" aria-hidden>
+            <span
+              className="custom-placeholder custom-placeholder--bio"
+              aria-hidden
+            >
               Describe yourself
             </span>
           )}
@@ -96,6 +103,11 @@ const EditBioForm = ({ setEditContent }) => {
         </div>
 
         <div className="edit-form__btns">
+          {loading && (
+            <div className="loading" aria-hidden>
+              <LoadingSpinner />
+            </div>
+          )}
           <button
             className="edit-form__btn"
             onClick={handleSave}
@@ -103,7 +115,8 @@ const EditBioForm = ({ setEditContent }) => {
               bio.trim() == "" ||
               chars < 0 ||
               chars === 101 ||
-              bio == user.profile.bio
+              bio == user.profile.bio ||
+              loading
             }
           >
             Save
