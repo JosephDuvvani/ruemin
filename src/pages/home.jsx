@@ -43,7 +43,7 @@ const Homepage = () => {
                             <img
                               src={
                                 chatter.profile.imageUrl ||
-                                "/src/assets/profile.jpeg"
+                                import.meta.env.VITE_PROFILE_68_URL
                               }
                               alt=""
                             />

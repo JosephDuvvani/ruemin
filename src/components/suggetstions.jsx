@@ -74,7 +74,8 @@ const Suggestions = () => {
                   <div className="card__img">
                     <img
                       src={
-                        chatter.profile.imageUrl || "/src/assets/profile.jpeg"
+                        chatter.profile.imageUrl ||
+                        import.meta.env.VITE_PROFILE_250_URL
                       }
                       alt=""
                     />

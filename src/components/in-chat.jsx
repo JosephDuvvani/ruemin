@@ -16,7 +16,10 @@ const InChat = () => {
             <div key={chatter.id} className="card">
               <div className="card__img">
                 <img
-                  src={chatter.profile.imageUrl || "/src/assets/profile.jpeg"}
+                  src={
+                    chatter.profile.imageUrl ||
+                    import.meta.env.VITE_PROFILE_250_URL
+                  }
                   alt=""
                 />
               </div>

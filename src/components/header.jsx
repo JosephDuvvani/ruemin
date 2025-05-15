@@ -89,7 +89,7 @@ const Header = () => {
             className="account__btn__img"
             src={
               user?.profile &&
-              (user?.profile.imageUrl || "/src/assets/profile.jpeg")
+              (user?.profile.imageUrl || import.meta.env.VITE_PROFILE_68_URL)
             }
             alt=""
           />

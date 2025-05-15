@@ -22,7 +22,7 @@ const Requests = () => {
                   <img
                     src={
                       req.receiver.profile.imageUrl ||
-                      "/src/assets/profile.jpeg"
+                      import.meta.env.VITE_PROFILE_250_URL
                     }
                     alt=""
                   />
@@ -49,7 +49,8 @@ const Requests = () => {
                 <div className="card__img">
                   <img
                     src={
-                      req.sender.profile.imageUrl || "/src/assets/profile.jpeg"
+                      req.sender.profile.imageUrl ||
+                      import.meta.env.VITE_PROFILE_250_URL
                     }
                     alt=""
                   />

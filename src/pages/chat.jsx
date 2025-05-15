@@ -136,7 +136,9 @@ const Chat = () => {
           </button>
           <div className="message-block__header__img">
             <img
-              src={receiver.profile.imageUrl || "/src/assets/profile.jpeg"}
+              src={
+                receiver.profile.imageUrl || import.meta.env.VITE_PROFILE_68_URL
+              }
               alt=""
             />
           </div>
@@ -167,7 +169,10 @@ const Chat = () => {
           <div className="receiver">
             <div className="receiver__img">
               <img
-                src={receiver.profile.imageUrl || "/src/assets/profile.jpeg"}
+                src={
+                  receiver.profile.imageUrl ||
+                  import.meta.env.VITE_PROFILE_68_URL
+                }
                 alt=""
               />
             </div>

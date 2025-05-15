@@ -9,7 +9,7 @@ const AccountDropdown = ({ user, setEditProfile }) => {
         <div>
           <img
             className="account__user__img"
-            src={user?.profile.imageUrl || "/src/assets/profile.jpeg"}
+            src={user?.profile.imageUrl || import.meta.env.VITE_PROFILE_68_URL}
             alt=""
           />
         </div>
